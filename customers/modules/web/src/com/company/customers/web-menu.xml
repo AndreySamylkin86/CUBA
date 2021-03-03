@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
+    <menu id="application-customers" insertBefore="administration" caption="mainMsg://menu_config.application-customers">
+        <item screen="customers_Customer.browse" caption="mainMsg://menu_config.customers_Customer.browse"/>
+        <item screen="customers_Order.browse" caption="mainMsg://menu_config.customers_Order.browse"/>
+        <item screen="customers_RegularCustomerCard.browse"
+              caption="mainMsg://menu_config.customers_RegularCustomerCard.browse"/>
+        <item screen="customers_Customer.browseInfo" caption="mainMsg://menu_config.customers_Customer.browseInfo"/>
+    </menu>
+</menu-config>
