@@ -20,8 +20,8 @@ public class RegularCustomerCard extends StandardEntity {
     private BigDecimal totalOfAllOrders;
 
     @NotNull
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CUSTOMER_ID")
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "CUSTOMER_ID", unique = true)
     private Customer customer;
 
     public Customer getCustomer() {

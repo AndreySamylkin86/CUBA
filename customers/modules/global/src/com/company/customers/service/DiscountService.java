@@ -7,5 +7,5 @@ import java.util.UUID;
 public interface DiscountService {
     String NAME = "customers_DiscountService";
 
-    void discount ();
+    void discount (Long orderNumber);
 }

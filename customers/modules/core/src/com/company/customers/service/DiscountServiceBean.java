@@ -1,6 +1,7 @@
 package com.company.customers.service;
 
 import com.company.customers.entity.Order;
+import com.company.customers.entity.RegularCustomerCard;
 import com.haulmont.cuba.core.global.DataManager;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,26 @@ public class DiscountServiceBean implements DiscountService {
     DataManager dataManager;
 
     @Override
-    public void discount() {
+    public void discount(Long orderNumber) {
 
-//        BigDecimal sum = dataManager.loadValue("SELECT sum(a.orderSum) FROM customers_Order  a WHERE a.customer = :customer", BigDecimal.class)
-//                .parameter("customer", customer).one();
+        Order order = dataManager.loadValue("SELECT a FROM customers_Order  a WHERE a.orderNumber = :orderNumber", Order.class)
+                .parameter("orderNumber", orderNumber).one();
 
+        BigDecimal sum = dataManager.loadValue("SELECT sum(a.orderSum) FROM customers_Order  a WHERE a.customer = :customer", BigDecimal.class)
+                .parameter("customer", order.getCustomer()).one();
 
+        RegularCustomerCard regularCustomerCard = dataManager.loadValue("SELECT a FROM customers_RegularCustomerCard a WHERE a.customer = :customer", RegularCustomerCard.class)
+                .parameter("customer", order.getCustomer()).one();
+        regularCustomerCard.setCustomer(order.getCustomer());
+        regularCustomerCard.setTotalOfAllOrders(sum);
+
+        if (sum.compareTo(BigDecimal.valueOf(5000)) < 0)
+            regularCustomerCard.setDiscount(0);
+        if (sum.compareTo(BigDecimal.valueOf(5000)) >= 0 && sum.compareTo(BigDecimal.valueOf(10000)) < 0)
+            regularCustomerCard.setDiscount(5);
+        if (sum.compareTo(BigDecimal.valueOf(10000)) >= 0)
+            regularCustomerCard.setDiscount(10);
+
+        dataManager.commit(regularCustomerCard);
     }
 }

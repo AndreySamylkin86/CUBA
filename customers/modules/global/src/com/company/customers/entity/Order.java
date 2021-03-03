@@ -21,7 +21,7 @@ public class Order extends StandardEntity {
     private BigDecimal orderSum;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
