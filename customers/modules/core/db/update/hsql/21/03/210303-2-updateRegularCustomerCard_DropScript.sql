@@ -1,0 +1,1 @@
+alter table CUSTOMERS_REGULAR_CUSTOMER_CARD drop column TOTAL_OF_ALL_ORDERS__U57527 cascade ;
